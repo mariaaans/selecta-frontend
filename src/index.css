@@ -1,68 +1,262 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root{
+  --bg-900: #060814;          
+  --bg-800: #071226;
+  --mistico-azul: #06AED5;
+  --mistico-oro: #FFD166;
+  --mistico-rosa: #FF6B6B;
+  --mistico-verde: #06D6A0;
+  --pixel-overlay: rgba(255,255,255,0.03);
+  --glass: rgba(7,18,38,0.55);
+  --accent-gradient: linear-gradient(90deg, var(--mistico-azul), var(--mistico-oro));
+  --crt-noise: url('/assets/crt-noise.png'); /* opcional: textura */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* ===========================
+   Fuentes (añade en index.html):
+   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+   =========================== */
+html,body,#root{ height:100%; }
+body{
+  background: radial-gradient(1200px 700px at 20% 10%, rgba(6,174,160,0.06), transparent 10%),
+              radial-gradient(900px 450px at 85% 80%, rgba(255,209,102,0.04), transparent 8%),
+              linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 100%);
+  color: #f8fbff;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Press Start 2P", monospace;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+@keyframes bg-breathe {
+  0% { filter: saturate(1) hue-rotate(0deg); transform: scale(1); }
+  50% { filter: saturate(1.06) hue-rotate(-1deg); transform: scale(1.002); }
+  100% { filter: saturate(1) hue-rotate(0deg); transform: scale(1); }
+}
+body{ animation: bg-breathe 18s ease-in-out infinite; }
+
+/* particles subtle layer (CSS-only) */
+body::after{
+  content:"";
+  pointer-events:none;
+  position:fixed; inset:0; z-index:0;
+  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity:0.09;
+  mix-blend-mode: screen;
+  transform: translateZ(0);
+  animation: particlesMove 40s linear infinite;
+}
+@keyframes particlesMove { from{background-position:0 0} to{background-position:1000px 1000px} }
+
+/* subtle CRT scanlines to keep retro feel */
+.crt {
+  position: relative;
+  isolation: isolate;
+}
+.crt::before{
+  content:"";
+  position: absolute; inset:0; pointer-events:none; z-index:2;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 100% 3px;
+  mix-blend-mode: overlay;
+  opacity: 0.05;
+}
+
+/* ===========================
+   Container principal
+   =========================== */
+.container-app{
+  position: relative;
+  z-index:10;
+  padding: 2.0rem;
+}
+
+/* ===========================
+   Header (logo pixel + nav)
+   =========================== */
+.header {
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:space-between;
+  max-width:1400px;
+  margin: 0 auto;
+}
+.brand {
+  display:flex; align-items:center; gap:12px;
+}
+.brand-badge{
+  width:64px; height:64px;
+  border-radius:12px;
+  background: linear-gradient(135deg, rgba(6,174,160,0.18), rgba(255,209,102,0.12));
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 6px 24px rgba(6,174,160,0.08), inset 0 1px 0 rgba(255,255,255,0.02);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+/* pixel logotype inside */
+.brand-badge .logo-letters {
+  font-family: 'Press Start 2P', monospace;
+  color: var(--mistico-oro);
+  font-size:12px;
+  letter-spacing:1px;
+  text-shadow: 0 0 8px rgba(255,209,102,0.9), 0 0 18px rgba(6,174,213,0.18);
+}
+
+/* animated neon halo */
+.brand-badge::after{
+  content:"";
+  position:absolute; inset:-35%;
+  background: radial-gradient(circle at 30% 30%, rgba(6,174,213,0.12), transparent 20%),
+              radial-gradient(circle at 80% 70%, rgba(255,209,102,0.08), transparent 20%);
+  filter: blur(18px);
+  animation: haloShift 6s linear infinite;
+}
+@keyframes haloShift { 0%{ transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)} }
+
+/* nav */
+.header .nav { display:flex; gap:10px; align-items:center; }
+.nav .nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding:8px 14px;
+  border-radius:10px;
+  color: #e9f3ff;
+  transition: all .18s ease;
+  backdrop-filter: blur(6px);
+}
+.nav .nav-btn:hover{
+  transform: translateY(-4px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 30px rgba(6,174,213,0.08), 0 0 10px rgba(255,209,102,0.04);
+}
+
+.grid-games{
+  display:grid;
+  grid-template-columns: repeat(1,minmax(0,1fr));
+  gap:18px;
+  margin-top:18px;
+}
+@media(min-width:640px){ .grid-games{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media(min-width:1024px){ .grid-games{ grid-template-columns: repeat(4, minmax(0,1fr)); } }
+
+.card-game {
+  position:relative;
+  overflow:hidden;
+  border-radius:12px;
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  z-index:5;
+  background: linear-gradient(180deg, rgba(9,12,25,0.6), rgba(2,6,23,0.6));
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 24px rgba(2,6,23,0.6);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.card-game .cover{
+  height:140px;
+  background-size:cover;
+  background-position:center;
+  position:relative;
 }
+.card-game .cover::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(8,14,30,0) 20%, rgba(2,6,23,0.85) 95%);
+}
+.card-game .cover .pixel-grid{
+  position:absolute; inset:0;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+                    linear-gradient(180deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 6px 6px;
+  mix-blend-mode: overlay;
+  opacity:0.12;
+  pointer-events:none;
+}
+
+.card-body {
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.card-body .meta {
+  display:flex; flex-direction:column;
+}
+.card-body .meta .title{
+  font-family: 'Inter', sans-serif;
+  font-weight:700;
+  font-size:14px;
+  color: #fff;
+  letter-spacing: 0.4px;
+}
+.card-body .meta .sub{
+  font-size:11px;
+  color: rgba(255,255,255,0.66);
+}
+
+.badge {
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+  color:#04121b;
+  background: linear-gradient(90deg, var(--mistico-oro), var(--mistico-azul));
+  box-shadow: 0 6px 20px rgba(96,255,207,0.06), 0 0 12px rgba(255,209,102,0.08);
+}
+
+.card-game::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:12px;
+  padding:2px;
+  background: linear-gradient(90deg, rgba(6,174,213,0.12), rgba(255,209,102,0.08));
+  filter: blur(12px);
+  opacity:0;
+  transition: opacity .25s ease, transform .25s ease;
+  transform: scale(0.98);
+  pointer-events:none;
+}
+.card-game:hover::before{ opacity:1; transform: scale(1.02); }
+
+.card-game:active .ripple {
+  transform: scale(0);
+  opacity:0.4;
+}
+
+.panel-modal{
+  position:fixed; inset:auto; top:10vh; left:50%; transform:translateX(-50%);
+  max-width:920px; width:95%;
+  border-radius:14px;
+  background: linear-gradient(180deg, rgba(7,12,22,0.9), rgba(3,6,12,0.95));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 30px 80px rgba(2,6,23,0.75);
+  z-index:60;
+  padding:18px;
+}
+
+.pixel-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size:10px;
+  color:var(--mistico-oro);
+  text-shadow: 0 0 8px rgba(255,209,102,0.9), 0 0 20px rgba(6,174,213,0.12);
+  letter-spacing:1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0s !important; transition-duration: 0s !important; }
+}
+
+.kicker { font-size:11px; color: rgba(255,255,255,0.6); }
+.small { font-size:12px; color: rgba(255,255,255,0.75); }
