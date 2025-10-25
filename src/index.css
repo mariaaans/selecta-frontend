@@ -12,14 +12,9 @@
   --pixel-overlay: rgba(255,255,255,0.03);
   --glass: rgba(7,18,38,0.55);
   --accent-gradient: linear-gradient(90deg, var(--mistico-azul), var(--mistico-oro));
-  --crt-noise: url('/assets/crt-noise.png'); /* opcional: textura */
+  --crt-noise: url('/assets/crt-noise.png'); 
 }
 
-/* ===========================
-   Fuentes (añade en index.html):
-   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-   =========================== */
 html,body,#root{ height:100%; }
 body{
   background: radial-gradient(1200px 700px at 20% 10%, rgba(6,174,160,0.06), transparent 10%),
@@ -39,7 +34,6 @@ body{
 }
 body{ animation: bg-breathe 18s ease-in-out infinite; }
 
-/* particles subtle layer (CSS-only) */
 body::after{
   content:"";
   pointer-events:none;
@@ -53,7 +47,6 @@ body::after{
 }
 @keyframes particlesMove { from{background-position:0 0} to{background-position:1000px 1000px} }
 
-/* subtle CRT scanlines to keep retro feel */
 .crt {
   position: relative;
   isolation: isolate;
@@ -67,18 +60,12 @@ body::after{
   opacity: 0.05;
 }
 
-/* ===========================
-   Container principal
-   =========================== */
 .container-app{
   position: relative;
   z-index:10;
   padding: 2.0rem;
 }
 
-/* ===========================
-   Header (logo pixel + nav)
-   =========================== */
 .header {
   display:flex;
   gap:18px;
@@ -101,7 +88,7 @@ body::after{
   position:relative;
   overflow:hidden;
 }
-/* pixel logotype inside */
+
 .brand-badge .logo-letters {
   font-family: 'Press Start 2P', monospace;
   color: var(--mistico-oro);
@@ -110,7 +97,6 @@ body::after{
   text-shadow: 0 0 8px rgba(255,209,102,0.9), 0 0 18px rgba(6,174,213,0.18);
 }
 
-/* animated neon halo */
 .brand-badge::after{
   content:"";
   position:absolute; inset:-35%;
@@ -121,7 +107,6 @@ body::after{
 }
 @keyframes haloShift { 0%{ transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)} }
 
-/* nav */
 .header .nav { display:flex; gap:10px; align-items:center; }
 .nav .nav-btn {
   background: transparent;
@@ -260,3 +245,38 @@ body::after{
 
 .kicker { font-size:11px; color: rgba(255,255,255,0.6); }
 .small { font-size:12px; color: rgba(255,255,255,0.75); }
+
+body {
+  cursor: none;
+}
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(6,174,213,0.9), rgba(255,209,102,0.3) 70%);
+  filter: blur(16px);
+  mix-blend-mode: screen;
+  z-index: 50;
+  transition: transform 0.1s ease-out;
+}
+.app-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.glass-card {
+  background: rgba(6, 8, 20, 0.7);
+  box-shadow: 0 8px 32px rgba(6, 174, 213, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  animation: fadeIn 1s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
