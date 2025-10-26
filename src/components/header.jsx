@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -23,20 +24,26 @@ export default function Header() {
           >
             SELECTA
           </motion.h1>
-          <p className="kicker">Retro • Místico • Arcadia</p>
+          <p className="kicker">Retro • Místico • Arcade</p>
         </div>
       </div>
 
       <nav className="nav">
-        <motion.button whileHover={{ y: -4 }} className="nav-btn">
-          Explorar
-        </motion.button>
-        <motion.button whileHover={{ y: -4 }} className="nav-btn">
-          Biblioteca
-        </motion.button>
-        <motion.button whileHover={{ y: -4 }} className="nav-btn">
-          Añadir
-        </motion.button>
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Link to="/" className="nav-btn">Inicio</Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Link to="/biblioteca" className="nav-btn">Biblioteca</Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Link to="/formulario-juego" className="nav-btn">Añadir</Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Link to="/reseñas" className="nav-btn">Reseñas</Link>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Link to="/estadisticas" className="nav-btn">Estadísticas</Link>
+        </motion.div>
       </nav>
     </header>
   );
