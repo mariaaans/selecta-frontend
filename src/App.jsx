@@ -8,6 +8,10 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./pages/Home";
 import AuthLayout from "./pages/AuthLayout";
+import FormularioJuego from "./components/FormularioJuego";
+import ListaReseñas from "./components/ListaReseñas";
+import EstadisticasPersonales from "./components/EstadisticasPersonales";
+
 
 function App() {
   return (
@@ -25,6 +29,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Route>
+          <Route path="/formulario-juego" element={<FormularioJuego />} />
+          <Route path="/reseñas" element={<ListaReseñas />} />
+          <Route path="/estadisticas" element={<EstadisticasPersonales />} />
         </Routes>
       </Router>
     </div>

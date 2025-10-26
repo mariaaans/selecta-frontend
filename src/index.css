@@ -280,3 +280,79 @@ body {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.formulario-juego,
+.formulario-resena {
+  background: var(--glass);
+  border: 2px solid var(--mistico-azul);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 20px var(--mistico-rosa);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: flotar 6s infinite ease-in-out;
+}
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.btn-mistico {
+  background: var(--accent-gradient);
+  color: white;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Press Start 2P", cursive;
+  text-transform: uppercase;
+}
+.btn-mistico:hover {
+  filter: brightness(1.2);
+}
+
+.lista-resenas {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+.tarjeta-resena {
+  background: var(--glass);
+  padding: 1rem;
+  border: 1px solid var(--mistico-verde);
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+.tarjeta-resena:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 12px var(--mistico-azul);
+}
+
+.estadisticas {
+  text-align: center;
+  margin-top: 3rem;
+}
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.stat-card {
+  background: var(--glass);
+  padding: 1rem 2rem;
+  border: 2px solid var(--mistico-oro);
+  border-radius: 12px;
+}
+
+.estrella {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: gray;
+  transition: all 0.3s;
+}
+.estrella.activa {
+  color: var(--mistico-oro);
+  text-shadow: 0 0 10px var(--mistico-rosa);
+}

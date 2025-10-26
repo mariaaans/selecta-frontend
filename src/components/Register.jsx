@@ -1,59 +1,66 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { API_URL } from "../config";
 
 export default function Register() {
   const [form, setForm] = useState({ nombre: "", email: "", password: "" });
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos de registro:", form);
-    // Aquí luego se conecta al backend: fetch(`${API_URL}/register`, { method: "POST", body: JSON.stringify(form) })
+    try {
+      const res = await fetch(`${API_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("Registro exitoso 🎉");
+        window.location.href = "/login";
+      } else {
+        setMessage(data.message || "Error al registrar usuario");
+      }
+    } catch (err) {
+      setMessage("Error de conexión con el servidor");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <h2 className="text-2xl font-bold text-center pixel-text mb-6">Registro</h2>
+    <form onSubmit={handleSubmit} className="retro-form">
+      <h2 className="text-2xl mb-4 neon-title">Crear cuenta</h2>
 
-      <div>
-        <label className="block text-sm mb-1">Nombre</label>
-        <input
-          type="text"
-          className="w-full px-3 py-2 rounded-md bg-black/30 border border-white/10 focus:outline-none focus:border-[#06AED5]"
-          onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-        />
-      </div>
+      <input
+        name="nombre"
+        type="text"
+        placeholder="Nombre completo"
+        onChange={handleChange}
+        required
+      />
+      <input
+        name="email"
+        type="email"
+        placeholder="Correo electrónico"
+        onChange={handleChange}
+        required
+      />
+      <input
+        name="password"
+        type="password"
+        placeholder="Contraseña"
+        onChange={handleChange}
+        required
+      />
 
-      <div>
-        <label className="block text-sm mb-1">Correo electrónico</label>
-        <input
-          type="email"
-          className="w-full px-3 py-2 rounded-md bg-black/30 border border-white/10 focus:outline-none focus:border-[#06AED5]"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-      </div>
+      {message && <p className="message">{message}</p>}
 
-      <div>
-        <label className="block text-sm mb-1">Contraseña</label>
-        <input
-          type="password"
-          className="w-full px-3 py-2 rounded-md bg-black/30 border border-white/10 focus:outline-none focus:border-[#06AED5]"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="w-full py-2 mt-4 bg-gradient-to-r from-[#FFD166] to-[#06AED5] text-black font-bold rounded-md hover:scale-105 transition-transform"
-      >
-        Crear cuenta
+      <button type="submit" className="btn-neon">
+        Registrarse
       </button>
-
-      <p className="text-center text-sm mt-4">
-        ¿Ya tienes cuenta?{" "}
-        <Link to="/login" className="text-[#FFD166] hover:underline">
-          Inicia sesión
-        </Link>
-      </p>
     </form>
   );
 }
