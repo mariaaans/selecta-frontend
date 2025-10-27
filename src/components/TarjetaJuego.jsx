@@ -2,6 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export default function TarjetaJuego({ juego }) {
+  // Si no tiene portada, no se muestra la tarjeta
+  if (!juego.portada || juego.portada === "") return null;
+
   return (
     <motion.article
       layout
@@ -11,7 +14,7 @@ export default function TarjetaJuego({ juego }) {
     >
       <div
         className="cover"
-        style={{ backgroundImage: `url(https://picsum.photos/seed/${juego.id}/800/600)` }}
+        style={{ backgroundImage: `url(${juego.portada})` }}
       >
         <div className="pixel-grid" />
       </div>
@@ -26,3 +29,4 @@ export default function TarjetaJuego({ juego }) {
     </motion.article>
   );
 }
+
