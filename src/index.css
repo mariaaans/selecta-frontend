@@ -3,16 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --bg-900: #060814;
-  --bg-800: #071226;
-  --mistico-azul: #06AED5;
-  --mistico-oro: #FFD166;
-  --mistico-rosa: #FF6B6B;
-  --mistico-verde: #06D6A0;
-  --pixel-overlay: rgba(255, 255, 255, 0.03);
-  --glass: rgba(7, 18, 38, 0.55);
-  --accent-gradient: linear-gradient(90deg, var(--mistico-azul), var(--mistico-oro));
-  --crt-noise: url("/assets/crt-noise.png");
+  --bg-900: #05060d;
+  --bg-800: #0a0e1c;
+  --mistico-azul: #00c8ff;
+  --mistico-oro: #ffd166;
+  --mistico-rosa: #ff6bd6;
+  --mistico-verde: #06d6a0;
+  --glass: rgba(10, 14, 26, 0.75);
+  --accent-gradient: linear-gradient(90deg, var(--mistico-oro), var(--mistico-azul));
 }
 
 html,
@@ -26,28 +24,27 @@ body {
     radial-gradient(900px 450px at 85% 80%, rgba(255, 209, 102, 0.04), transparent 8%),
     linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 100%);
   color: #f8fbff;
-  font-family: "Inter", system-ui, "Segoe UI", Roboto, "Press Start 2P", monospace;
+  font-family: "Press Start 2P", monospace, system-ui;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  animation: bg-breathe 18s ease-in-out infinite;
+  animation: bg-breathe 20s ease-in-out infinite;
 }
 
 @keyframes bg-breathe {
-  0% { filter: saturate(1); transform: scale(1); }
-  50% { filter: saturate(1.06); transform: scale(1.002); }
-  100% { filter: saturate(1); transform: scale(1); }
+  0%, 100% { filter: saturate(1); }
+  50% { filter: saturate(1.08); }
 }
 
+/* ✨ Pequeño efecto de partículas */
 body::after {
   content: "";
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
   background-size: 6px 6px;
   opacity: 0.08;
-  animation: particlesMove 40s linear infinite;
+  animation: particlesMove 60s linear infinite;
 }
 
 @keyframes particlesMove {
@@ -55,16 +52,7 @@ body::after {
   to { background-position: 1000px 1000px; }
 }
 
-.crt { position: relative; isolation: isolate; }
-.crt::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 100% 3px;
-  opacity: 0.05;
-}
-
+/* 🕹️ --- Header y navegación --- */
 .header {
   display: flex;
   justify-content: space-between;
@@ -84,25 +72,24 @@ body::after {
 }
 
 .brand-badge {
-  width: 64px;
-  height: 64px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(6, 174, 160, 0.18), rgba(255, 209, 102, 0.12));
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 30%, rgba(6, 174, 213, 0.25), rgba(255, 209, 102, 0.1));
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 0 10px rgba(6, 174, 213, 0.5);
 }
 
 .brand-badge .logo-letters {
-  font-family: "Press Start 2P", monospace;
   color: var(--mistico-oro);
   font-size: 12px;
   letter-spacing: 1px;
-  text-shadow: 0 0 8px rgba(255, 209, 102, 0.9), 0 0 18px rgba(6, 174, 213, 0.18);
+  text-shadow: 0 0 6px var(--mistico-oro), 0 0 12px var(--mistico-azul);
 }
 
+/* 🔘 Botones de navegación */
 .nav {
   display: flex;
   gap: 10px;
@@ -110,27 +97,27 @@ body::after {
 }
 
 .nav .nav-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 18px;
   border-radius: 10px;
   color: #e9f3ff;
   font-family: "Press Start 2P", monospace;
   font-size: 10px;
   letter-spacing: 1px;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
 }
 
 .nav .nav-btn:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 30px rgba(6, 174, 213, 0.25);
+  transform: translateY(-3px) scale(1.03);
+  border-color: rgba(6, 174, 213, 0.6);
+  box-shadow: 0 0 25px rgba(6, 174, 213, 0.4);
 }
 
+/* 🌇 --- Página principal --- */
 .home-container {
   text-align: center;
-  color: white;
   padding-bottom: 3rem;
   min-height: 100vh;
 }
@@ -144,77 +131,83 @@ body::after {
   font-family: "Press Start 2P", cursive;
   font-size: 2rem;
   color: var(--mistico-oro);
-  text-shadow: 0 0 8px var(--mistico-azul);
+  text-shadow: 0 0 12px var(--mistico-azul);
   letter-spacing: 1.5px;
 }
 
 .home-subtitle {
-  font-size: 1.1rem;
-  max-width: 750px;
+  font-size: 1rem;
+  max-width: 700px;
   margin: 1rem auto;
   color: var(--mistico-rosa);
+  opacity: 0.9;
 }
 
 .home-btn {
+  margin-top: 1.5rem;
   font-size: 0.9rem;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
+  padding: 1rem 1.6rem;
+  border-radius: 14px;
   background: var(--accent-gradient);
-  box-shadow: 0 0 15px var(--mistico-azul);
+  box-shadow: 0 0 20px var(--mistico-azul);
+  transition: 0.25s ease;
 }
 
 .home-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px var(--mistico-rosa);
+  transform: scale(1.07);
+  box-shadow: 0 0 30px var(--mistico-rosa);
 }
 
+/* 💾 --- Formularios Retro Neon --- */
 .retro-form {
   width: 100%;
   max-width: 420px;
   margin: 8rem auto;
-  padding: 2rem 2.5rem;
-  background: rgba(7, 12, 22, 0.85);
-  border: 2px solid rgba(6, 174, 213, 0.4);
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(6, 174, 213, 0.4), inset 0 0 10px rgba(255, 209, 102, 0.2);
+  padding: 2.2rem 2.6rem;
+  background: var(--glass);
+  border: 1px solid rgba(6, 174, 213, 0.4);
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(6, 174, 213, 0.35), inset 0 0 15px rgba(255, 209, 102, 0.15);
   text-align: center;
-  backdrop-filter: blur(10px);
-  animation: aparecerForm 0.8s ease;
+  backdrop-filter: blur(14px);
+  animation: aparecerForm 0.9s ease;
 }
 
 @keyframes aparecerForm {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(25px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .retro-form h2 {
   font-family: "Press Start 2P", cursive;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--mistico-oro);
-  text-shadow: 0 0 8px var(--mistico-azul);
+  text-shadow: 0 0 10px var(--mistico-azul);
   margin-bottom: 1.5rem;
 }
 
 .retro-form input {
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(10, 14, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 12, 22, 0.85);
   color: #fff;
+  font-size: 0.9rem;
   transition: all 0.25s ease;
 }
 
 .retro-form input:focus {
   outline: none;
   border-color: var(--mistico-azul);
-  box-shadow: 0 0 10px var(--mistico-azul);
+  box-shadow: 0 0 12px var(--mistico-azul);
 }
 
+/* 🔮 Botón de enviar */
 .retro-form .btn-neon {
   width: 100%;
-  padding: 0.9rem;
+  padding: 1rem;
   background: linear-gradient(90deg, var(--mistico-oro), var(--mistico-azul));
   border: none;
   border-radius: 12px;
@@ -225,20 +218,21 @@ body::after {
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 20px rgba(6, 174, 213, 0.5);
+  box-shadow: 0 0 25px rgba(6, 174, 213, 0.6);
 }
 
 .retro-form .btn-neon:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px var(--mistico-oro);
+  transform: scale(1.06);
+  box-shadow: 0 0 35px var(--mistico-oro);
 }
 
+/* ✨ Cursor de resplandor */
 .cursor-glow {
   position: fixed;
   top: 0;
   left: 0;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   pointer-events: none;
   background: radial-gradient(circle, rgba(6, 174, 213, 0.9), rgba(255, 209, 102, 0.3) 70%);
@@ -246,4 +240,97 @@ body::after {
   mix-blend-mode: screen;
   z-index: 50;
   transition: transform 0.1s ease-out;
+}
+
+/* 🌀 Pequeñas animaciones */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* 🧭 --- Contenedor general de autenticación (Login/Register) --- */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* 🔮 Caja del formulario (Login o Register) */
+.auth-card {
+  background: var(--glass);
+  border-radius: 18px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 0 25px rgba(6, 174, 213, 0.35),
+              inset 0 0 15px rgba(255, 209, 102, 0.15);
+  backdrop-filter: blur(12px);
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  animation: aparecerForm 0.9s ease;
+}
+
+/* Título del formulario */
+.auth-card h2 {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.2rem;
+  color: var(--mistico-oro);
+  text-shadow: 0 0 10px var(--mistico-azul);
+  margin-bottom: 1.5rem;
+}
+
+/* Inputs */
+.auth-card input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 12, 22, 0.85);
+  color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: var(--mistico-azul);
+  box-shadow: 0 0 12px var(--mistico-azul);
+}
+
+/* Botón con gradiente */
+.auth-card button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(90deg, var(--mistico-oro), var(--mistico-azul));
+  border: none;
+  border-radius: 12px;
+  color: #000;
+  font-weight: 700;
+  font-family: "Press Start 2P", cursive;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 25px rgba(6, 174, 213, 0.6);
+}
+
+.auth-card button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 35px var(--mistico-oro);
+}
+
+.auth-toggle {
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  color: var(--mistico-rosa);
+}
+
+.auth-toggle a {
+  color: var(--mistico-azul);
+  text-decoration: none;
+}
+
+.auth-toggle a:hover {
+  text-shadow: 0 0 6px var(--mistico-azul);
 }
