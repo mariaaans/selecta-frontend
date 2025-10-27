@@ -38,44 +38,47 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="retro-form">
-      <h2 className="text-2xl mb-4 neon-title">Crear cuenta</h2>
+    <div className="auth-container">
+      <form onSubmit={handleSubmit} className="retro-form">
+        <h2>Crear cuenta</h2>
 
-      <input
-        name="nombre"
-        type="text"
-        placeholder="Nombre completo"
-        value={form.nombre}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="email"
-        type="email"
-        placeholder="Correo electrónico"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="password"
-        type="password"
-        placeholder="Contraseña"
-        value={form.password}
-        onChange={handleChange}
-        required
-      />
+        <input
+          name="nombre"
+          type="text"
+          placeholder="Nombre completo"
+          value={form.nombre}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Correo electrónico"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Contraseña"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
 
-      {message && <p className="message text-[#FF6B6B]">{message}</p>}
+        {message && <p className="text-[#FF6B6B] text-sm mt-2">{message}</p>}
 
-      <button
-        type="submit"
-        className="btn-neon"
-        disabled={loading}
-        style={{ opacity: loading ? 0.7 : 1 }}
-      >
-        {loading ? "Registrando..." : "Registrarse"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          className="btn-neon mt-4"
+          disabled={loading}
+          style={{ opacity: loading ? 0.7 : 1 }}
+        >
+          {loading ? "Registrando..." : "Registrarse"}
+        </button>
+      </form>
+    </div>
   );
 }
+

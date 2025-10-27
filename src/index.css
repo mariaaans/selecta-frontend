@@ -160,17 +160,26 @@ body::after {
 
 /* 💾 --- Formularios Retro Neon --- */
 .retro-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 420px;
-  margin: 8rem auto;
-  padding: 2.2rem 2.6rem;
+  min-height: 380px;
+  margin: 0 auto;
+  padding: 2.5rem 3rem;
   background: var(--glass);
-  border: 1px solid rgba(6, 174, 213, 0.4);
+  border: 1px solid rgba(6, 174, 213, 0.45);
   border-radius: 18px;
-  box-shadow: 0 0 25px rgba(6, 174, 213, 0.35), inset 0 0 15px rgba(255, 209, 102, 0.15);
+  box-shadow:
+    0 0 35px rgba(6, 174, 213, 0.45),
+    0 0 70px rgba(255, 209, 102, 0.15),
+    inset 0 0 20px rgba(6, 174, 213, 0.25);
   text-align: center;
-  backdrop-filter: blur(14px);
-  animation: aparecerForm 0.9s ease;
+  backdrop-filter: blur(18px);
+  animation: aparecerForm 1s ease;
 }
 
 @keyframes aparecerForm {
@@ -333,4 +342,11 @@ body::after {
 
 .auth-toggle a:hover {
   text-shadow: 0 0 6px var(--mistico-azul);
+}
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
 }

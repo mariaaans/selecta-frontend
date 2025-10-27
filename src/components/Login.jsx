@@ -25,10 +25,9 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        // Guarda el token en localStorage para autenticación
         localStorage.setItem("token", data.token);
         alert("✅ Inicio de sesión exitoso");
-        window.location.href = "/biblioteca"; // Redirige a la zona protegida
+        window.location.href = "/biblioteca";
       } else {
         setError(data.message || "Credenciales inválidas");
       }
@@ -40,37 +39,40 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="retro-form">
-      <h2 className="text-2xl mb-4 neon-title">Iniciar Sesión</h2>
+    <div className="auth-container">
+      <form onSubmit={handleSubmit} className="retro-form">
+        <h2>Iniciar Sesión</h2>
 
-      <input
-        name="email"
-        type="email"
-        placeholder="Correo electrónico"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="password"
-        type="password"
-        placeholder="Contraseña"
-        value={form.password}
-        onChange={handleChange}
-        required
-      />
+        <input
+          name="email"
+          type="email"
+          placeholder="Correo electrónico"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Contraseña"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
 
-      {error && <p className="error text-[#FF6B6B]">{error}</p>}
+        {error && <p className="text-[#FF6B6B] text-sm mt-2">{error}</p>}
 
-      <button
-        type="submit"
-        className="btn-neon"
-        disabled={loading}
-        style={{ opacity: loading ? 0.7 : 1 }}
-      >
-        {loading ? "Ingresando..." : "Entrar"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          className="btn-neon mt-4"
+          disabled={loading}
+          style={{ opacity: loading ? 0.7 : 1 }}
+        >
+          {loading ? "Ingresando..." : "Entrar"}
+        </button>
+      </form>
+    </div>
   );
 }
+
 
